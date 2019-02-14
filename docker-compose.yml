@@ -1,0 +1,22 @@
+web:
+    image: hitalos/laravel:latest
+    ports:
+        - 80:80
+    volumes:
+        - ./:/var/www
+    links:
+        - db
+    environment:
+        DB_HOST: db
+        DB_DATABASE: dbname
+        DB_USERNAME: username
+        DB_PASSWORD: password
+        DB_CONNECTION: mysql
+db:
+    image: mysql:5.7
+    environment:
+        # with mysql
+        MYSQL_DATABASE: dbname
+        MYSQL_USER: username
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: password
