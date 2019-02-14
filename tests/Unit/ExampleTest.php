@@ -18,7 +18,6 @@ class ExampleTest extends TestCase
     public function testBasicTest()
     {
         factory(User::class, 200)->create();
-        print(json_encode(User::all()));
         $this->assertTrue(true);
     }
 }

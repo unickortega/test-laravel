@@ -4,9 +4,13 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use \App\User;
+
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -14,8 +18,17 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        // create User instance
+        $user = factory(User::class)->create();
 
-        $response->assertStatus(200);
+        // make a test http request
+        $response = $this->actingAs($user, 'api')->get('api/user');
+
+        // check if user instance is same with http json response
+        $response->assertJson(
+            [
+                'id' => $user->id
+            ]
+        );
     }
 }
